@@ -1,6 +1,7 @@
 angular.module('FenrirCtrl', [])
-.controller('MainCtrl', ['$scope','$http', 'MainService', ($scope, $http, MainService)=> {
-	$scope.test="asd";
+.controller('MainCtrl', ['$scope', 'MainService', ($scope, MainService)=> {
+	$scope.logo="img/logo.png";
+	$scope.name="Fenrir";
 	$scope.req={
 	  "request": {
 	    "slice": [
@@ -22,12 +23,25 @@ angular.module('FenrirCtrl', [])
 	  }
 	};
 	$scope.trips;
+	$scope.trip;
 	$scope.getTrips=(req)=>{
 		MainService.getTrips(req).success((data)=>{
 			$scope.trips=data;
+			console.log(data.trips.tripOption[0]);
 		}).error((error)=>{
 			console.error(error);
 		});
 	};
-	$scope.getTrips($scope.req);
+	$scope.getDummy=()=>MainService.getDummy().success((data)=>{
+		$scope.trips=data;
+		console.info(data);
+
+		$('.btn-secondary').tooltip();
+	});
+	$scope.getDummy();
+	//$scope.getTrips($scope.req);
+}])
+.controller('DetailCtrl', ['$scope', '$stateParams', ($scope, $stateParams)=> {
+	$scope.test="detail!!!";
+	$scope.trip=$scope.trips.trips.tripOption[$stateParams.tripID];
 }]);

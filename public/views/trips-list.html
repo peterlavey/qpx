@@ -1,0 +1,25 @@
+<div ui-sref="detail({tripID:$index})" ng-repeat="trip in trips.trips.tripOption" class="card col-xs-4">
+
+	<div class="card-block text-xs-center">
+		<div class="pull-left" style="display: flex;">
+			<img ng-src="{{logo}}" width="25px" height="25px" alt="Card image">
+		</div>
+		<h4 class="card-title">{{trips.trips.data.carrier[0].name}} {{trips.trips.data.aircraft[0].name}}</h4>
+		<h6 class="card-subtitle text-muted">{{trips.trips.data.city[0].name}} - {{trips.trips.data.city[1].name}}</h6>
+	</div>
+
+	<div class="card-block text-xs-center">
+		<h4 class="card-title">{{trip.saleTotal}}</h4>
+		<h6 class="card-subtitle text-muted">tax</h6>
+		<div class="col-xs-6">
+			<strong>Departure Time</strong>
+			<p class="card-text">{{trips.trips.data.airport[0].name}}</p>
+			<p class="card-text">{{trip.slice[0].segment[0].leg[0].departureTime}}</p>
+		</div>
+		<div class="col-xs-6">
+			<strong>Arrival Time</strong>
+			<p class="card-text">{{trips.trips.data.airport[1].name}}</p>
+			<p class="card-text">{{trip.slice[0].segment[0].leg[0].arrivalTime}}</p>
+		</div>
+	</div>
+</div>
