@@ -1,11 +1,46 @@
+<div class="card">
+
+	<div class="card-block text-xs-center">
+		<div class="row">
+		  <div class="col-xs-2">
+		    <input ng-model="slice.origin" type="text" class="form-control" placeholder="Origin" style="text-transform:uppercase">
+		  </div>
+		  <div class="col-xs-2">
+		    <input ng-model="slice.destination" type="text" class="form-control" placeholder="Destination" style="text-transform:uppercase">
+		  </div>
+		  <div class="col-xs-2">
+        <div class='input-group date' id='datetimepicker1'>
+            <input type='text' class="form-control" />
+            <span class="input-group-addon">
+                &#9823;
+            </span>
+        </div>
+
+        <script type="text/javascript">
+          $(()=>$('#datetimepicker1').datetimepicker(
+						{
+							defaultDate:new Date(),
+							format:'YYYY-MM-DD'
+						}
+					));
+        </script>
+		  </div>
+			<div align="right">
+				<button ng-click="getTrips()" class="btn btn-primary col-xs-2">Find   &#9823;</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
 <div ui-sref="detail({tripID:$index})" ng-repeat="trip in trips.trips.tripOption" class="card col-xs-4">
 
 	<div class="card-block text-xs-center">
 		<div class="pull-left" style="display: flex;">
 			<img ng-src="{{logo}}" width="25px" height="25px" alt="Card image">
 		</div>
-		<h4 class="card-title">{{trips.trips.data.carrier[0].name}} {{trips.trips.data.aircraft[0].name}}</h4>
-		<h6 class="card-subtitle text-muted">{{trips.trips.data.city[0].name}} - {{trips.trips.data.city[1].name}}</h6>
+		<h4 class="card-title">{{getCarrier(trip.pricing[0].fare[0].carrier)[0].name}} {{getAircraft(trip.slice[0].segment[0].leg[0].aircraft)[0].name}}</h4>
+		<h6 class="card-subtitle text-muted">{{getCity(trip.slice[0].segment[0].leg[0].origin)[0].name}} - {{getCity(trip.slice[0].segment[0].leg[0].destination)[0].name}}</h6>
 	</div>
 
 	<div class="card-block text-xs-center">

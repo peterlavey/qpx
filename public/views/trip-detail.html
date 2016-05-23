@@ -1,16 +1,20 @@
 <div ng-controller="DetailCtrl">
   <div class="card">
-  	<div class="card-block text-xs-center">
-  		<div class="pull-left" style="display: flex;">
-  			<img ng-src="{{logo}}" width="25px" height="25px" alt="Card image">
-  		</div>
-  		<h4 class="card-title">{{trips.trips.data.carrier[0].name}} {{trips.trips.data.aircraft[0].name}}</h4>
-  		<h6 class="card-subtitle text-muted">{{trips.trips.data.city[0].name}} - {{trips.trips.data.city[1].name}}</h6>
-  	</div>
+    <div align="right" class="card-block" style="background-color: #F44336; height: 5em;">
+        <h3 class="card-title text-uppercase" style="position: absolute;color:#FFF">{{trips.trips.data.carrier[0].name}} {{trips.trips.data.aircraft[0].name}}</h4>
+        <h6 class="card-subtitle text-muted">{{trips.trips.data.city[1].name}} - {{trips.trips.data.city[0].name}}</h6>
+        <img ng-src="{{logo}}" class="card-img-top avatar" alt="Card image cap" class="img-responsive" height="100" width="100">
+     </div>
 
   	<div class="card-block text-xs-center">
   		<h4 class="card-title">{{trip.saleTotal}}</h4>
   		<h6 class="card-subtitle text-muted">tax</h6>
+      <p ng-repeat="tax in trips.trips.data.tax">{{tax.name}}</p>
+      <h6 class="card-subtitle text-muted">Detail</h6>
+      <p>Base fare total: {{trip.pricing[0].baseFareTotal}}</p>
+      <p>Tax total: {{trip.pricing[0].saleTaxTotal}}</p>
+      <p>passengers: {{trip.pricing[0].passengers.adultCount}}</p>
+      <p>Fly: {{trip.slice[0].segment[0].flight.carrier}}-{{trip.slice[0].segment[0].flight.number}}</p>
     </div>
     <div class="card-block text-xs-center">
   			<strong>Arrival Time</strong>
