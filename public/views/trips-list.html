@@ -1,5 +1,4 @@
 <div class="card">
-
 	<div class="card-block text-xs-center">
 		<div class="row">
 		  <div class="col-xs-2">
@@ -18,11 +17,11 @@
 
         <script type="text/javascript">
           $(()=>$('#datetimepicker1').datetimepicker(
-						{
-							defaultDate:new Date(),
-							format:'YYYY-MM-DD'
-						}
-					));
+					{
+						defaultDate:new Date(),
+						format:'YYYY-MM-DD'
+					}
+				));
         </script>
 		  </div>
 			<div class="col-xs-4"></div>
@@ -34,8 +33,28 @@
 	</div>
 </div>
 
-<div ui-sref="detail({tripID:$index})" ng-repeat="trip in trips.trips.tripOption | filter:filter | orderBy:order" class="card col-xs-4">
+<div ng-show="loading" aria-busy="true" aria-label="Loading" role="progressbar" class="container">
+  <div class="swing">
+    <div class="swing-l"></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div class="swing-r"></div>
+  </div>
+  <div class="shadow">
+    <div class="shadow-l"></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div class="shadow-r"></div>
+  </div>
+ </div>
 
+<div ui-sref="detail({tripID:$index})" ng-repeat="trip in trips.trips.tripOption | filter:filter | orderBy:order" class="card fly-card col-xs-4">
 	<div class="card-block text-xs-center">
 		<div class="pull-left" style="display: flex;">
 			<img ng-src="{{logo}}" width="25px" height="25px" alt="Card image">

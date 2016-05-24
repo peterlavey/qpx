@@ -4,6 +4,7 @@ angular.module('FenrirCtrl', [])
 	$scope.name="Fenrir";
 	$scope.filter;
 	$scope.order;
+	$scope.loading=false;
 	$scope.orderBy=(order)=>$scope.order=order;
 	$scope.qwe={
 	  "request": {
@@ -57,12 +58,14 @@ angular.module('FenrirCtrl', [])
 	};
 
 	$scope.getTrips=()=>{
+		$scope.loading=true;
 		$scope.slice.origin=$scope.slice.origin.toUpperCase();
 		$scope.slice.destination=$scope.slice.destination.toUpperCase();
 		$scope.slice.date=$('#datetimepicker1').data('date');
 		$scope.req.request.slice.push($scope.slice);
 
 		MainService.getTrips($scope.req).success((data)=>{
+			$scope.loading=false;
 			$scope.trips=data;
 			console.log(data);
 			console.log(data.toString());
@@ -70,12 +73,16 @@ angular.module('FenrirCtrl', [])
 			console.error(error);
 		});
 	};
-	$scope.getDummy=()=>MainService.getDummy().success((data)=>{
-		$scope.trips=data;
-		console.info(data);
-		console.log("Return: "+$scope.getAircraft("320"));
-	});
-	$scope.getDummy();
+	$scope.getDummy=()=>{
+		$scope.loading=true;
+		MainService.getDummy().success((data)=>{
+			$scope.loading=false;
+			$scope.trips=data;
+			console.info(data);
+			console.log("Return: "+$scope.getAircraft("320"));
+		});
+	};
+	//$scope.getDummy();
 	//$scope.getTrips($scope.req);
 	$scope.getAircraft=(code)=>	_.filter($scope.trips.trips.data.aircraft, (data)=>data.code==code);
 	$scope.getAirport=(code)=>	_.filter($scope.trips.trips.data.airport, (data)=>data.code==code);
