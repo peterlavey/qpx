@@ -2,6 +2,9 @@ angular.module('FenrirCtrl', [])
 .controller('MainCtrl', ['$scope', 'MainService', ($scope, MainService)=> {
 	$scope.logo="img/logo.png";
 	$scope.name="Fenrir";
+	$scope.filter;
+	$scope.order;
+	$scope.orderBy=(order)=>$scope.order=order;
 	$scope.qwe={
 	  "request": {
 	    "slice": [
@@ -78,7 +81,7 @@ angular.module('FenrirCtrl', [])
 	$scope.getAirport=(code)=>	_.filter($scope.trips.trips.data.airport, (data)=>data.code==code);
 	$scope.getCarrier=(code)=>	_.filter($scope.trips.trips.data.carrier, (data)=>data.code==code);
 	$scope.getCity=(code)=>	_.filter($scope.trips.trips.data.city, (data)=>data.code==code);
-	$scope.getTax=(code)=>	_.filter($scope.trips.trips.data.tax, (data)=>data.code==code);
+	$scope.getTax=(id)=>	_.filter($scope.trips.trips.data.tax, (data)=>data.id==id);
 }])
 .controller('DetailCtrl', ['$scope', '$stateParams', ($scope, $stateParams)=> {
 	$scope.test="detail!!!";

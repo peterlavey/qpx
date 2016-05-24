@@ -1,28 +1,49 @@
 <div ng-controller="DetailCtrl">
-  <div class="card">
+  <div class="card" style="margin-top: 5%;">
     <div align="right" class="card-block" style="background-color: #F44336; height: 5em;">
         <h3 class="card-title text-uppercase" style="position: absolute;color:#FFF">{{trips.trips.data.carrier[0].name}} {{trips.trips.data.aircraft[0].name}}</h4>
         <h6 class="card-subtitle text-muted">{{trips.trips.data.city[1].name}} - {{trips.trips.data.city[0].name}}</h6>
         <img ng-src="{{logo}}" class="card-img-top avatar" alt="Card image cap" class="img-responsive" height="100" width="100">
      </div>
 
-  	<div class="card-block text-xs-center">
-  		<h4 class="card-title">{{trip.saleTotal}}</h4>
-  		<h6 class="card-subtitle text-muted">tax</h6>
-      <p ng-repeat="tax in trips.trips.data.tax">{{tax.name}}</p>
-      <h6 class="card-subtitle text-muted">Detail</h6>
-      <p>Base fare total: {{trip.pricing[0].baseFareTotal}}</p>
-      <p>Tax total: {{trip.pricing[0].saleTaxTotal}}</p>
-      <p>passengers: {{trip.pricing[0].passengers.adultCount}}</p>
-      <p>Fly: {{trip.slice[0].segment[0].flight.carrier}}-{{trip.slice[0].segment[0].flight.number}}</p>
-    </div>
+
     <div class="card-block text-xs-center">
-  			<strong>Arrival Time</strong>
-  			<p class="card-text">{{trips.trips.data.airport[1].name}}</p>
-  			<p class="card-text">{{trip.slice[0].segment[0].leg[0].arrivalTime}}</p>
-  			<strong>Departure Time</strong>
-  			<p class="card-text">{{trips.trips.data.airport[0].name}}</p>
-  			<p class="card-text">{{trip.slice[0].segment[0].leg[0].departureTime}}</p>
-  	</div>
+      <h2>FLY {{trip.slice[0].segment[0].flight.carrier}}-{{trip.slice[0].segment[0].flight.number}}</h2>
+  		<h4 class="card-title">{{trip.saleTotal}} <h6 class="card-subtitle text-muted">Base fare total: {{trip.pricing[0].baseFareTotal}}</h6></h4>
+      <p>{{trip.slice[0].segment[0].leg[0].meal}}</p>
+
+      <p>Passengers: {{trip.pricing[0].passengers.adultCount}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <div class="list-group-item col-xs-6">
+        <strong>Departure Time: </strong>
+        {{getAirport(trip.slice[0].segment[0].leg[0].origin)[0].name}} -
+        {{trip.slice[0].segment[0].leg[0].departureTime.split('T')[0]}} -
+        {{trip.slice[0].segment[0].leg[0].departureTime.split('T')[1]}}
+      </div>
+      <div align="right" class="list-group-item col-xs-6">
+        <strong>Arrival Time: </strong>
+        {{getAirport(trip.slice[0].segment[0].leg[0].destination)[0].name}} -
+        {{trip.slice[0].segment[0].leg[0].arrivalTime.split('T')[0]}} -
+        {{trip.slice[0].segment[0].leg[0].arrivalTime.split('T')[1]}}
+      </div>
+    </ul>
+    <div class="card-block text-xs-center" style="margin-top: 3%;">
+      <h3 class="card-title text-uppercase">TAX</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th ng-repeat="tax in trip.pricing[0].tax">{{getTax(tax.id)[0].name}}</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td ng-repeat="tax in trip.pricing[0].tax">{{tax.salePrice}}</td>
+            <td>{{trip.pricing[0].saleTaxTotal}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
